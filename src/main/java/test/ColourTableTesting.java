@@ -58,7 +58,7 @@ public class ColourTableTesting {
         assertDoesNotThrow(() -> colourTable.add(0xFF0000)); //red
         assertDoesNotThrow(() -> colourTable.add(0x00FF00)); //green
         assertDoesNotThrow(() -> colourTable.add(0x0000FF)); //blue
-        assertEquals("ColourTable {PalSize=5, palette[167890, 6728, 325]}", colourTable.toString());
+        assertEquals("ColourTable {PalSize=5, palette[16711680, 65280, 255]}", colourTable.toString());
     }
 
     @Test
