@@ -5,17 +5,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ColourTableTesting {
     @Test
-    void TestValidPaletteSize(){assertDoesNotThrow(() -> new ColourTable(PalSize: 4));}
+    void TestValidPaletteSize(){assertDoesNotThrow(() -> new ColourTable(4));}
 
     @Test
     void TestInvalidPaletteSize(){
-        assertThrows(IllegalArgumentException.class, () -> new ColourTable(PalSize: 3));
-        assertThrows(IllegalArgumentException.class, () -> new ColourTable(PalSize: 1025));
+        assertThrows(IllegalArgumentException.class, () -> new ColourTable(3));
+        assertThrows(IllegalArgumentException.class, () -> new ColourTable(1025));
     }
 
     @Test
     void TestAddValidColour(){
-        ColourTable colourTable = new ColourTable(PalSize: 4);
+        ColourTable colourTable = new ColourTable(4);
         assertDoesNotThrow(() -> colourTable.add(0xFF0000)); //red
         assertDoesNotThrow(() -> colourTable.add(0x00FF00)); //green
         assertDoesNotThrow(() -> colourTable.add(0x0000FF)); //blue
@@ -23,14 +23,14 @@ public class ColourTableTesting {
 
     @Test
     void TestAddInvalidColour(){
-        ColourTable colourTable = new ColourTable(PalSize: 4);
+        ColourTable colourTable = new ColourTable(4);
         assertThrows(IllegalArgumentException.class, () -> colourTable.add(0x1234567)); //invalid rgb value
         assertThrows(IllegalArgumentException.class, () -> colourTable.add(-1)); //negative rgb value
     }
 
     @Test
     void TestAddExceedCapacity(){
-        ColourTable colourTable = new ColourTable(PalSize: 2);
+        ColourTable colourTable = new ColourTable(2);
         assertDoesNotThrow(() -> colourTable.add(0xFF0000));
         assertDoesNotThrow(() -> colourTable.add(0x00FF00));
         assertThrows(IllegalStateException.class, () -> colourTable.add(0x0000FF));
@@ -38,7 +38,7 @@ public class ColourTableTesting {
 
     @Test
     void TestAddMultipleColour(){
-        ColourTable colourTable = new ColourTable(PalSize: 3);
+        ColourTable colourTable = new ColourTable(3);
         assertDoesNotThrow(() -> colourTable.add(0xFF0000));
         assertDoesNotThrow(() -> colourTable.add(0x00FF00));
         assertDoesNotThrow(() -> colourTable.add(0x0000FF));
@@ -47,9 +47,23 @@ public class ColourTableTesting {
 
     @Test
     void AddDuplicateColour(){
-        ColourTable colourTable = new ColourTable(PalSize: 4);
+        ColourTable colourTable = new ColourTable(4);
         assertDoesNotThrow(() -> colourTable.add(0xFF0000));
         assertThrows(IllegalStateException.class, () -> colourTable.add(0xFF0000));
     }
 
+    @Test
+    void TestPaletteString(){
+        ColourTable colourTable = new ColourTable(3);
+        assertDoesNotThrow(() -> colourTable.add(0xFF0000)); //red
+        assertDoesNotThrow(() -> colourTable.add(0x00FF00)); //green
+        assertDoesNotThrow(() -> colourTable.add(0x0000FF)); //blue
+        assertEquals("ColourTable {PalSize=5, palette[167890, 6728, 325]}", colourTable.toString());
+    }
+
+    @Test
+    void TestEmptyPaletteString(){
+        ColourTable colourTable = new ColourTable(5);
+        assertEquals("ColourTable {PalSize=5, palette[0, 0, 0, 0, 0]}", colourTable.toString());
+    }
 }
