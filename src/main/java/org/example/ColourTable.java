@@ -26,6 +26,11 @@ public class ColourTable {
         if (!Validrgb(rgbValue)){
             throw new IllegalArgumentException("Invalid RGB value");
         }
+        // if the colour is already in the palette, then it's duplicated
+        if (contains(rgbValue)) {
+            throw new IllegalStateException("Duplicate color: " + rgbValue);
+        }
+
         palette[Index++] = rgbValue;
     }
 
@@ -35,6 +40,15 @@ public class ColourTable {
 
     private boolean Validrgb(int rgbVal){
         return rgbVal >= 0 && rgbVal <= 0xFFFFFF;
+    }
+
+    private boolean contains(int rgbValue) {
+        for (int i = 0; i < Index; i++) {
+            if (palette[i] == rgbValue) {
+                return true; // Found a match, rgbValue is in the palette
+            }
+        }
+        return false; // rgbValue is not in the palette
     }
 
     @Override
