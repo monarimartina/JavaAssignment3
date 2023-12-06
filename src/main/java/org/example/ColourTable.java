@@ -1,6 +1,7 @@
 package org.example;
 import java.util.Arrays;
 
+
 public class ColourTable {
     private final int PalSize;
     private final int[] palette;
