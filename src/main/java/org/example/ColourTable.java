@@ -7,6 +7,7 @@ public class ColourTable {
     private int Index;
 
     public ColourTable(int PalSize){
+        // if the size of teh palette is not valid then print a message
         if (!ValidPaletteSize(PalSize)){
             throw new IllegalArgumentException("Invalid palette size!");
         }
@@ -16,9 +17,11 @@ public class ColourTable {
     }
 
     public void add(int rgbValue){
+        // if the index is bigger than the size of the palette then we exceeded the capacity of the palette
         if (Index >= PalSize){
             throw new IllegalStateException("Exceeded the capacity of the ColourTable");
         }
+        // if the value inserted is not a valid RGB value, then we print a message
         if (!Validrgb(rgbValue)){
             throw new IllegalArgumentException("Invalid RGB value");
         }
